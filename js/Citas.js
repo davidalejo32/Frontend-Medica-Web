@@ -4,6 +4,7 @@ class Cita {
 
 
   constructor(){
+    this.token = localStorage.getItem('token')
     this.#crearFormulario()
   }
 
@@ -19,7 +20,16 @@ class Cita {
     try {
 
       // trae el listado de doctores
-      const citas = await fetch('http://127.0.0.1:3000/citas')
+      const citas = await fetch('http://127.0.0.1:3000/citas', {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      })
+
+      if(citas.status === 401) {
+        window.location.assign('../index.html')
+      }
+
       const data = await citas.json()
       
       
@@ -45,7 +55,11 @@ class Cita {
 
           const {pacienteCedula, idDoctor } = el
 
-          const paciente = await fetch(`http://127.0.0.1:3000/paciente/${pacienteCedula}`)
+          const paciente = await fetch(`http://127.0.0.1:3000/paciente/${pacienteCedula}`, {
+            headers: {
+              "Authorization": `Bearer ${this.token}`
+            }
+          })
           const dataPaciente = await paciente.json()
 
           const  nombrePaciente = dataPaciente.nombre
@@ -54,7 +68,11 @@ class Cita {
           const nombreCompletoPaciente = `${nombrePaciente} ${apellidoPaciente}`;
 
 
-          const doctor = await fetch(`http://127.0.0.1:3000/doctor/${idDoctor}`)
+          const doctor = await fetch(`http://127.0.0.1:3000/doctor/${idDoctor}`, {
+            headers: {
+              "Authorization": `Bearer ${this.token}`
+            }
+          })
           const doctorData = await doctor.json()
             
 
@@ -62,7 +80,11 @@ class Cita {
           const nombreCompletoDoctor = `${nombre} ${apellido}`;
           
 
-          const especialidad = await fetch(`http://127.0.0.1:3000/especialidades/${idEspecialidad}`)
+          const especialidad = await fetch(`http://127.0.0.1:3000/especialidades/${idEspecialidad}`, {
+            headers: {
+              "Authorization": `Bearer ${this.token}`
+            }
+          })
           const dataEspecialidad = await especialidad.json()
 
           const nombreEspecialidad  = dataEspecialidad.nombre
@@ -147,6 +169,7 @@ class Cita {
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${this.token}`
           }
         })
 
@@ -178,7 +201,11 @@ class Cita {
     const contenedor = document.getElementById('form')
 
     // peticion
-    const formCita = await fetch('http://127.0.0.1:3000/formulario/Cita')
+    const formCita = await fetch('http://127.0.0.1:3000/formulario/Cita', {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    })
     const data = await formCita.json()
 
 
@@ -230,7 +257,11 @@ class Cita {
     
 
     // peticion de las especialidades
-    const especialidades = await fetch('http://127.0.0.1:3000/especialidades')
+    const especialidades = await fetch('http://127.0.0.1:3000/especialidades', {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    })
     const especialidadesData = await especialidades.json()
 
 
@@ -290,7 +321,11 @@ class Cita {
         
 
         // ejecuta la consulta con el data set (id)
-        const doctores = await fetch(`http://127.0.0.1:3000/doctores/${opcionSeleccionadaID || 1}`)
+        const doctores = await fetch(`http://127.0.0.1:3000/doctores/${opcionSeleccionadaID || 1}`, {
+          headers: {
+            "Authorization": `Bearer ${this.token}`
+          }
+        })
   
         const data = await doctores.json()
   

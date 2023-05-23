@@ -4,6 +4,7 @@ class Doctor {
 
 
   constructor(){
+    this.token = localStorage.getItem('token')
     this.#crearFormulario()
   }
 
@@ -19,7 +20,16 @@ class Doctor {
     try {
 
       // trae el listado de doctores
-      const doctores = await fetch('http://127.0.0.1:3000/doctores')
+      const doctores = await fetch('http://127.0.0.1:3000/doctores', {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      })
+
+      if(doctores.status === 401) {
+        window.location.assign('../index.html')
+      }
+
       const data = await doctores.json()
   
       
@@ -43,7 +53,11 @@ class Doctor {
         data.forEach(async (el) => {
 
           const {nombre, apellido, consultorio, correo, idEspecialidad } = el
-          const request = await fetch(`http://127.0.0.1:3000/especialidades/${idEspecialidad}`)
+          const request = await fetch(`http://127.0.0.1:3000/especialidades/${idEspecialidad}`,{
+            headers: {
+              "Authorization": `Bearer ${this.token}`
+            }
+          })
           const especialidad = await request.json()
     
           const nombreCompleto = `${nombre} ${apellido}`;
@@ -134,6 +148,7 @@ class Doctor {
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${this.token}`
           }
         })
 
@@ -160,7 +175,11 @@ class Doctor {
     const contenedor = document.getElementById('form')
 
     // peticion
-    const formDoctor = await fetch('http://127.0.0.1:3000/formulario/Doctor')
+    const formDoctor = await fetch('http://127.0.0.1:3000/formulario/Doctor', {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    })
     const data = await formDoctor.json()
 
 
@@ -215,7 +234,11 @@ class Doctor {
 
     
     // listar especialidades
-    const especialidades = await fetch('http://127.0.0.1:3000/especialidades')
+    const especialidades = await fetch('http://127.0.0.1:3000/especialidades', {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    })
     const especialidadesData = await especialidades.json()
 
 

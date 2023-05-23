@@ -4,6 +4,7 @@ class Especialidad {
 
 
   constructor(){
+    this.token = localStorage.getItem('token')
     this.#crearFormulario()
   }
 
@@ -18,7 +19,16 @@ class Especialidad {
     try {
 
       // trae el listado de doctores
-      const especialidades = await fetch('http://127.0.0.1:3000/especialidades')
+      const especialidades = await fetch('http://127.0.0.1:3000/especialidades', {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      })
+
+      if(especialidades.status === 401) {
+        window.location.assign('../index.html')
+      }
+      
       const data = await especialidades.json()
   
       
@@ -147,6 +157,7 @@ class Especialidad {
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${this.token}`
           }
         })
 
@@ -169,7 +180,11 @@ class Especialidad {
     const contenedor = document.getElementById('form')
 
     // peticion
-    const formDoctor = await fetch('http://127.0.0.1:3000/formulario/Especialidad')
+    const formDoctor = await fetch('http://127.0.0.1:3000/formulario/Especialidad', {
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    })
     const data = await formDoctor.json()
 
 

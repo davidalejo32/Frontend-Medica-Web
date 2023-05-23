@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- local archive -->
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- local archive -->
   <link rel="stylesheet" href="./style.css">
+  <!-- bootstrap -->
   <title>Medica Web</title>
 </head>
 <body>
@@ -30,9 +31,9 @@
       </div>
       <div class="nav__links-container">
         <ul class="nav__links">
-          <li><a href="./pacientes.html" class="nav__link ">Pacientes</a></li>
+          <li><a href="./pacientes.html" class="nav__link select">Pacientes</a></li>
           <li><a href="./doctores.html" class="nav__link">Doctores</a></li>
-          <li><a href="./citas.html" class="nav__link select">Citas</a></li>
+          <li><a href="./citas.html" class="nav__link">Citas</a></li>
           <li><a href="./especialidades.html" class="nav__link">Especialidades</a></li>
         </ul>
       </div>
@@ -43,27 +44,28 @@
     <section class="section__cards-container">
 
       <div class="section__cards-color">
-        <p>Agenda tu próxima cita médica con los mejores especialistas y obtén el tratamiento 
-          adecuado para cuidar de tu salud</p>
+        <p>¡Bienvenido a MedicaWeb! La plataforma en línea que te conecta con los mejores 
+          médicos y especialistas. A continuación, te presentamos el listado de pacientes 
+          registrados en nuestra plataforma</p>
       </div>
 
 
       <div class="section__cards">
 
-        <div class="cards__container" id="cardsContainer">
-        </div>
+        <div class="cards__container" id="cardsContainer"></div>
 
       </div>
 
-      </div>
+      
 
     </section>
 
 
     <section class="section__form-container">
 
-      <p class="section__form-text">Agenda tu cita con nosotros y experimenta una atención médica de calidad en un 
-        ambiente acogedor y profesional. ¡Nos encargamos de tu salud!</p>
+      <p class="section__form-text">En MedicaWeb, nos enfocamos en simplificar la gestión los pacientes. Regístralos 
+        fácilmente y accede a su información cuando lo necesites. ¡Comienza hoy mismo y 
+        lleva un control eficiente!</p>
 
       <form id="form" class="form">
 
@@ -71,10 +73,9 @@
       
     </section>
 
-    <script src="./js/Citas.js" type="module"></script>
+    <script src="./js/Pacientes.js" type="module"></script>
 
   </main>
-
 </body>
 </html>
 

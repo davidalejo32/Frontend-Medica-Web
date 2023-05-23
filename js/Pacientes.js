@@ -4,6 +4,7 @@ class Paciente {
 
 
   constructor(){
+    this.token = localStorage.getItem('token')
     this.#crearFormulario()
   }
 
@@ -25,10 +26,18 @@ class Paciente {
     const sectionCard = document.querySelector('.section__cards');
 
     try {
-      const pacientes = await fetch('http://127.0.0.1:3000/pacientes')
+      const pacientes = await fetch('http://127.0.0.1:3000/pacientes', {
+        headers: {
+          "Authorization": `Bearer ${this.token}`
+        }
+      })
+
+      if(pacientes.status === 401) {
+        window.location.assign('../index.html')
+      }
+
       const data = await pacientes.json()
   
-      // const data = []
   
       if (data.length === 0){
 
@@ -130,6 +139,7 @@ class Paciente {
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${this.token}`
           }
         })
 
@@ -154,7 +164,11 @@ class Paciente {
 
     const contenedor = document.getElementById('form')
 
-    const formPacientes = await fetch('http://127.0.0.1:3000/formulario/Paciente')
+    const formPacientes = await fetch('http://127.0.0.1:3000/formulario/Paciente',{
+      headers: {
+        "Authorization": `Bearer ${this.token}`
+      }
+    })
     const data = await formPacientes.json()
 
 
